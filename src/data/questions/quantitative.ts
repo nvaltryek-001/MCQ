@@ -1,0 +1,141 @@
+import { build, type Raw } from "./build";
+import type { Question } from "@/lib/types";
+
+const S = "quantitative" as const;
+const m = (module: string, raws: Raw[]) => build(S, module, raws);
+
+export const quantitative: Question[] = [
+...m("Number System", [
+  ["e","Unit digits","What is the unit digit of 7^45?",["3","9","1","7"],3,"Unit digits of powers of 7 repeat every 4: 7, 9, 3, 1. Since 45 = 4×11 + 1, the unit digit matches 7¹ = 7."],
+  ["e","Natural number sums","What is the sum of the first 50 natural numbers?",["1225","1250","1275","1325"],2,"n(n+1)/2 = 50×51/2 = 1275."],
+  ["m","Divisibility","What is the smallest number that must be added to 1000 so that the result is exactly divisible by 13?",["12","3","7","1"],3,"13 × 76 = 988, so 1000 leaves remainder 12. Adding 13 − 12 = 1 gives 1001 = 13 × 77."],
+  ["m","Factorials","How many trailing zeros does 100! have?",["20","22","24","25"],2,"Count factors of 5: ⌊100/5⌋ + ⌊100/25⌋ = 20 + 4 = 24."],
+  ["h","Remainders","What is the remainder when 2^100 is divided by 7?",["1","4","2","3"],2,"2³ = 8 ≡ 1 (mod 7). Since 100 = 3×33 + 1, 2^100 ≡ 2¹ = 2."],
+]),
+...m("HCF and LCM", [
+  ["e","HCF","What is the HCF of 36 and 84?",["6","12","18","24"],1,"36 = 2²×3², 84 = 2²×3×7. Common factors: 2²×3 = 12."],
+  ["m","LCM","What is the LCM of 12, 15 and 20?",["120","90","60","180"],2,"12 = 2²×3, 15 = 3×5, 20 = 2²×5. LCM = 2²×3×5 = 60."],
+  ["m","HCF × LCM relation","The product of two numbers is 2160 and their HCF is 12. What is their LCM?",["180","144","216","160"],0,"HCF × LCM = product of the numbers, so LCM = 2160 ÷ 12 = 180."],
+  ["m","Remainder problems","What is the greatest number that divides 285 and 1249 leaving remainders 9 and 7 respectively?",["69","138","276","46"],1,"Required number = HCF(285 − 9, 1249 − 7) = HCF(276, 1242). 1242 = 4×276 + 138 and 276 = 2×138, so the HCF is 138."],
+  ["h","LCM with remainders","What is the least number which, when divided by 6, 9, 15 and 18, leaves a remainder of 4 in each case?",["90","94","184","364"],1,"LCM(6, 9, 15, 18) = 90. The required number is 90 + 4 = 94."],
+]),
+...m("Decimal Fractions", [
+  ["e","Multiplying decimals","What is 0.6 × 0.07?",["0.42","0.042","4.2","0.0042"],1,"6 × 7 = 42, and there are 3 decimal places in total, so the answer is 0.042."],
+  ["e","Fraction to decimal","What is 3/8 expressed as a decimal?",["0.325","0.375","0.385","0.425"],1,"Divide 3 by 8: 3 ÷ 8 = 0.375."],
+  ["m","Dividing decimals","What is 0.0036 ÷ 0.04?",["0.9","0.09","0.009","9"],1,"Multiply numerator and denominator by 10,000: 36 ÷ 400 = 0.09."],
+  ["m","Mixed operations","What is the value of (2.5 × 0.4) ÷ 0.05?",["2","200","0.2","20"],3,"2.5 × 0.4 = 1, and 1 ÷ 0.05 = 20."],
+  ["h","Recurring decimals","What is 0.2333… (3 recurring) expressed as a fraction in lowest terms?",["23/99","7/30","23/100","1/4"],1,"Let x = 0.2333…; 100x − 10x = 23.33… − 2.33… = 21, so 90x = 21 and x = 7/30."],
+]),
+...m("Simplification", [
+  ["e","BODMAS","Simplify: 15 + 3 × 4 − 6 ÷ 2",["24","18","27","30"],0,"By BODMAS: 3×4 = 12 and 6÷2 = 3, so 15 + 12 − 3 = 24."],
+  ["m","Surds","What is the value of (√196 × √144) ÷ 8?",["18","24","28","21"],3,"√196 = 14 and √144 = 12. 14 × 12 = 168, and 168 ÷ 8 = 21."],
+  ["m","Percent simplification","What is the value of 25% of 480 + 15% of 200?",["150","140","120","160"],0,"25% of 480 = 120 and 15% of 200 = 30, so the total is 150."],
+  ["m","Algebraic identities","What is the value of (17² − 13²) ÷ (17 + 13)?",["2","30","4","13"],2,"17² − 13² = (17 − 13)(17 + 13) = 4 × 30. Dividing by 30 leaves 4."],
+  ["h","Telescoping series","What is the value of 1/(1×2) + 1/(2×3) + 1/(3×4) + … + 1/(9×10)?",["8/9","9/10","10/11","1"],1,"1/(n(n+1)) = 1/n − 1/(n+1), so the sum telescopes to 1 − 1/10 = 9/10."],
+]),
+...m("Percentages", [
+  ["e","Percentage of a number","What is 20% of 250?",["40","45","50","55"],2,"20/100 × 250 = 50."],
+  ["e","Percentage as a ratio","20 is what percent of 80?",["20%","30%","40%","25%"],3,"20/80 × 100 = 25%."],
+  ["m","Successive changes","The price of an item is increased by 20% and then decreased by 20%. What is the net change?",["No change","4% increase","4% decrease","2% decrease"],2,"Net multiplier = 1.2 × 0.8 = 0.96, a 4% decrease."],
+  ["m","Election problems","In a two-candidate election the winner received 55% of the votes and won by 3000 votes. How many votes were polled?",["24000","27000","33000","30000"],3,"Margin = 55% − 45% = 10% of the total = 3000, so the total is 30000."],
+  ["h","Population growth","A town's population grows 10% in the first year and 20% in the second year. If it is 26,400 after two years, what was the original population?",["18000","20000","22000","21000"],1,"Multiplier = 1.10 × 1.20 = 1.32. Original = 26400 ÷ 1.32 = 20000."],
+]),
+...m("Profit, Loss and Discounts", [
+  ["e","Profit percentage","An article bought for ₹400 is sold for ₹460. What is the profit percentage?",["12%","15%","20%","10%"],1,"Profit = 60, and 60/400 × 100 = 15%."],
+  ["m","Discount","A shirt marked at ₹800 is sold at a 15% discount. What is the selling price?",["₹640","₹700","₹720","₹680"],3,"Discount = 15% of 800 = 120, so SP = 800 − 120 = ₹680."],
+  ["m","Cost price from profit","A trader sells an article for ₹540 and makes a 20% profit. What is the cost price?",["₹450","₹432","₹470","₹500"],0,"SP = 1.2 × CP, so CP = 540 ÷ 1.2 = ₹450."],
+  ["m","Gain after loss","A man sells an article at a 10% loss for ₹900. At what price should he sell it to gain 10%?",["₹990","₹1000","₹1100","₹1200"],2,"CP = 900 ÷ 0.9 = 1000. For a 10% gain: 1.1 × 1000 = ₹1100."],
+  ["h","Marked price and discount","A shopkeeper marks goods 50% above cost price. What discount percentage lets him still earn an 8% profit?",["25%","30%","32%","28%"],3,"Let CP = 100, MP = 150 and SP = 108. Discount = 42/150 × 100 = 28%."],
+]),
+...m("Simple and Compound Interest", [
+  ["e","Simple interest","What is the simple interest on ₹5000 at 8% per annum for 3 years?",["₹1000","₹1200","₹1500","₹1600"],1,"SI = PRT/100 = 5000 × 8 × 3 / 100 = ₹1200."],
+  ["e","Amount with SI","What is the amount on ₹2000 at 10% simple interest for 2 years?",["₹2200","₹2400","₹2420","₹2600"],1,"SI = 2000 × 10 × 2 / 100 = 400, so the amount is ₹2400."],
+  ["m","Compound interest","What is the compound interest on ₹10,000 at 10% per annum for 2 years, compounded annually?",["₹2000","₹2200","₹2100","₹2310"],2,"Amount = 10000 × 1.1² = 12100, so CI = ₹2100."],
+  ["m","Rate from doubling","A sum doubles itself in 8 years at simple interest. What is the rate of interest per annum?",["10%","12.5%","15%","8%"],1,"SI = P in 8 years, so P = P × R × 8/100, giving R = 12.5%."],
+  ["h","CI–SI difference","The difference between compound and simple interest on a sum for 2 years at 5% per annum is ₹25. What is the sum?",["₹5000","₹8000","₹10000","₹12000"],2,"For 2 years, difference = P(R/100)². So 25 = P × 0.0025 and P = ₹10000."],
+]),
+...m("Ratios, Proportions and Variations", [
+  ["e","Dividing in a ratio","₹600 is divided between A and B in the ratio 2 : 3. What is A's share?",["₹200","₹240","₹300","₹360"],1,"A's share = 2/5 × 600 = ₹240."],
+  ["m","Compound ratios","If A : B = 2 : 3 and B : C = 4 : 5, what is A : B : C?",["2 : 3 : 5","8 : 15 : 12","8 : 12 : 15","6 : 12 : 15"],2,"Equalise B: A : B = 8 : 12 and B : C = 12 : 15, so A : B : C = 8 : 12 : 15."],
+  ["m","Fourth proportional","What is the fourth proportional to 4, 6 and 10?",["12","15","20","24"],1,"4 : 6 = 10 : x, so x = 6 × 10 / 4 = 15."],
+  ["m","Mean proportional","What is the mean proportional between 4 and 36?",["16","18","10","12"],3,"Mean proportional = √(4 × 36) = √144 = 12."],
+  ["h","Income–expenditure ratios","The incomes of A and B are in the ratio 5 : 4 and their expenditures are in the ratio 3 : 2. If each saves ₹1600, what is A's income?",["₹3200","₹4000","₹4800","₹5000"],1,"Incomes 5x and 4x, expenditures 3y and 2y. 5x − 3y = 1600 and 4x − 2y = 1600 give y = 2x − 800, so x = 800. A's income = 5x = ₹4000."],
+]),
+...m("Partnership", [
+  ["e","Profit sharing","A and B invest ₹3000 and ₹2000 for one year. If the profit is ₹1000, what is A's share?",["₹400","₹500","₹600","₹700"],2,"Ratio 3 : 2, so A's share = 3/5 × 1000 = ₹600."],
+  ["e","Three partners","A, B and C invest in the ratio 1 : 2 : 3. If the total profit is ₹1800, how much does C receive?",["₹900","₹600","₹1200","₹300"],0,"C's share = 3/6 × 1800 = ₹900."],
+  ["m","Time-weighted capital","A invests ₹8000 for 12 months and B invests ₹12000 for 6 months. If the profit is ₹3500, what is A's share?",["₹1500","₹2000","₹2500","₹1750"],1,"Ratio = 8000×12 : 12000×6 = 96000 : 72000 = 4 : 3. A's share = 4/7 × 3500 = ₹2000."],
+  ["m","Working partner","A and B invest ₹4500 and ₹6000. B manages the business and gets 10% of the profit as salary; the rest is shared in proportion to capital. If the profit is ₹7000, how much does A get?",["₹2400","₹3000","₹2700","₹3150"],2,"B's salary = 700. The remaining 6300 is shared 4500 : 6000 = 3 : 4, so A gets 3/7 × 6300 = ₹2700."],
+  ["h","Late entry","A starts a business with ₹3500. B joins after 5 months with ₹4000. If the yearly profit is ₹10,000, what is B's share?",["₹3500","₹4500","₹5000","₹4000"],3,"A: 3500 × 12 = 42000; B: 4000 × 7 = 28000. Ratio 3 : 2, so B gets 2/5 × 10000 = ₹4000."],
+]),
+...m("Ages", [
+  ["e","Present ages","A father is three times as old as his son. If the sum of their ages is 48 years, how old is the son?",["10","12","16","14"],1,"Son = x, father = 3x, so 4x = 48 and x = 12."],
+  ["m","Age ratios","The ratio of the ages of A and B is 4 : 5. After 6 years it will be 5 : 6. What is A's present age?",["20","28","24","30"],2,"(4x + 6)/(5x + 6) = 5/6 → 24x + 36 = 25x + 30 → x = 6. A = 24."],
+  ["m","Average age","The average age of 5 team members is 20 years. When a new member joins, the average becomes 22. How old is the new member?",["30","32","34","28"],1,"New total = 6 × 22 = 132; old total = 100. New member = 32."],
+  ["m","Age difference","A mother is 24 years older than her son. In 8 years she will be three times as old as him. What is the son's present age?",["6","4","8","10"],1,"Let the son be s: s + 32 = 3(s + 8) → s + 32 = 3s + 24 → s = 4."],
+  ["h","Past age relation","The sum of the present ages of a father and his son is 60 years. Six years ago the father was five times as old as the son. What is the father's present age?",["44","48","46","50"],2,"F + S = 60 and F − 6 = 5(S − 6) → F = 5S − 24. So 6S = 84, S = 14 and F = 46."],
+]),
+...m("Averages", [
+  ["e","Simple average","What is the average of 10, 20, 30, 40 and 50?",["25","30","35","20"],1,"Sum = 150 and 150 ÷ 5 = 30."],
+  ["e","Sum from average","The average of five numbers is 18. What is their sum?",["80","85","95","90"],3,"Sum = average × count = 18 × 5 = 90."],
+  ["m","Overlapping groups","The average of 11 numbers is 50. The average of the first six is 49 and of the last six is 52. What is the sixth number?",["56","52","60","48"],0,"First six + last six = 294 + 312 = 606 (the sixth is counted twice). Total of 11 = 550, so the sixth = 606 − 550 = 56."],
+  ["m","Improving an average","A batsman scores 85 in his 17th innings and thereby raises his average by 3. What is his average after 17 innings?",["34","37","40","36"],1,"Let the old average be a: 16a + 85 = 17(a + 3) → a = 34. New average = 37."],
+  ["h","Replacement","The average weight of 8 persons rises by 2.5 kg when a person weighing 65 kg is replaced by a new person. What is the new person's weight?",["75 kg","80 kg","90 kg","85 kg"],3,"Total increase = 8 × 2.5 = 20 kg, so the new person weighs 65 + 20 = 85 kg."],
+]),
+...m("Alligations and Mixtures", [
+  ["e","Mean price","2 kg of rice at ₹20/kg is mixed with 3 kg of rice at ₹30/kg. What is the price per kg of the mixture?",["₹24","₹25","₹26","₹27"],2,"(2×20 + 3×30) / 5 = 130 / 5 = ₹26."],
+  ["m","Alligation rule","In what ratio must tea at ₹40/kg be mixed with tea at ₹50/kg to get a mixture worth ₹46/kg?",["2 : 3","3 : 2","1 : 1","4 : 5"],0,"Cheaper : Dearer = (50 − 46) : (46 − 40) = 4 : 6 = 2 : 3."],
+  ["m","Milk and water","A 60-litre mixture has milk and water in the ratio 2 : 1. How much water must be added to make the ratio 1 : 2?",["40 L","60 L","50 L","80 L"],1,"Milk = 40 L and water = 20 L. For 1 : 2, water must be 80 L, so add 60 L."],
+  ["m","Replacement","A vessel contains 40 litres of milk. 4 litres are removed and replaced with water, and this is repeated once more. How much milk is left?",["36 L","32 L","32.4 L","33.6 L"],2,"Milk left = 40 × (1 − 4/40)² = 40 × 0.81 = 32.4 L."],
+  ["h","Mixing two mixtures","Two vessels contain milk and water in the ratios 5 : 1 and 1 : 2. In what ratio should they be mixed to get milk : water = 2 : 1?",["1 : 2","2 : 1","3 : 1","1 : 3"],1,"Milk fractions are 5/6 and 1/3; the target is 2/3. First : second = (2/3 − 1/3) : (5/6 − 2/3) = 1/3 : 1/6 = 2 : 1."],
+]),
+...m("Time and Work", [
+  ["e","Combined work","A can finish a job in 12 days and B in 24 days. Working together, how many days will they take?",["6","8","9","10"],1,"Combined rate = 1/12 + 1/24 = 3/24 = 1/8, so 8 days."],
+  ["e","Men and days","6 men can complete a work in 20 days. How many days will 10 men take?",["10","14","12","15"],2,"Total work = 6 × 20 = 120 man-days. 120 ÷ 10 = 12 days."],
+  ["m","Pairs of workers","A and B can do a job in 12 days, B and C in 15 days, and A and C in 20 days. How many days will A, B and C take together?",["8","10","12","15"],1,"2(A + B + C) = 1/12 + 1/15 + 1/20 = 12/60 = 1/5, so A + B + C = 1/10 → 10 days."],
+  ["m","Remaining work","A can do a work in 15 days and B in 20 days. They work together for 4 days, then B leaves. How many more days does A need?",["6","8","10","12"],1,"Work done in 4 days = 4 × (1/15 + 1/20) = 7/15. Remaining 8/15 takes A (8/15) × 15 = 8 days."],
+  ["h","Staggered leaving","A, B and C can finish a job alone in 20, 30 and 60 days. A works throughout, B leaves 3 days before completion and C leaves 6 days before completion. In how many days is the job completed?",["10","15","12","14"],2,"Let the total time be T: T/20 + (T − 3)/30 + (T − 6)/60 = 1 → 3T + 2(T − 3) + (T − 6) = 60 → 6T = 72 → T = 12."],
+]),
+...m("Time, Speed and Distance", [
+  ["e","Unit conversion","Convert 72 km/h into metres per second.",["10 m/s","18 m/s","20 m/s","25 m/s"],2,"72 × 5/18 = 20 m/s."],
+  ["m","Average speed","A car travels 60 km at 30 km/h and returns the same distance at 20 km/h. What is its average speed for the whole trip?",["25 km/h","24 km/h","26 km/h","22.5 km/h"],1,"Average speed = 2xy/(x + y) = 2 × 30 × 20 / 50 = 24 km/h."],
+  ["m","Late and early","A man reaches his destination 20 minutes late at 40 km/h and 10 minutes early at 60 km/h. What is the distance?",["50 km","48 km","60 km","72 km"],2,"d/40 − d/60 = 30/60 h → d/120 = 1/2 → d = 60 km."],
+  ["m","Reduced speed","Walking at 5/6 of his usual speed, a man reaches his office 15 minutes late. What is his usual time?",["60 min","75 min","90 min","45 min"],1,"Time becomes 6/5 of usual, so the extra 1/5 of usual time is 15 min. Usual time = 75 min."],
+  ["h","Overtaking","A starts walking at 8 km/h. Two hours later B starts from the same place in the same direction at 10 km/h. How far from the start will B overtake A?",["64 km","100 km","80 km","90 km"],2,"A's head start = 16 km and the relative speed = 2 km/h, so B needs 8 hours. B covers 10 × 8 = 80 km."],
+]),
+...m("Trains, Boats and Streams, Races", [
+  ["e","Train crossing a pole","A train 150 m long runs at 54 km/h. How long does it take to cross a pole?",["8 s","10 s","12 s","15 s"],1,"54 km/h = 15 m/s. Time = 150 ÷ 15 = 10 s."],
+  ["e","Downstream speed","A boat's speed in still water is 12 km/h and the stream flows at 3 km/h. What is its downstream speed?",["9 km/h","15 km/h","12 km/h","18 km/h"],1,"Downstream speed = 12 + 3 = 15 km/h."],
+  ["m","Platform crossing","A 200 m long train crosses a 300 m platform in 25 seconds. What is its speed?",["60 km/h","54 km/h","72 km/h","80 km/h"],2,"Distance = 500 m in 25 s = 20 m/s = 72 km/h."],
+  ["m","Stream speed","A boat covers 24 km downstream in 4 hours and returns upstream in 6 hours. What is the speed of the stream?",["2 km/h","1 km/h","1.5 km/h","0.5 km/h"],1,"Downstream = 6 km/h and upstream = 4 km/h, so the stream speed = (6 − 4)/2 = 1 km/h."],
+  ["h","Opposite trains","Two trains 120 m and 180 m long run in opposite directions at 54 km/h and 36 km/h. How long do they take to cross each other?",["10 s","12 s","15 s","14 s"],1,"Relative speed = 90 km/h = 25 m/s. Distance = 300 m, so time = 12 s."],
+]),
+...m("Permutation and Combination", [
+  ["e","Factorials","In how many ways can 5 different books be arranged on a shelf?",["60","24","120","720"],2,"5 books can be ordered in 5! = 5×4×3×2×1 = 120 ways."],
+  ["m","Repeated letters","How many distinct arrangements are there of the letters of the word LEVEL?",["60","30","120","15"],1,"5! / (2! × 2!) = 120 / 4 = 30, since L and E each appear twice."],
+  ["m","Selection with a condition","A committee of 3 is to be formed from 6 men and 4 women with at least one woman. In how many ways can this be done?",["100","120","80","90"],0,"Total C(10,3) = 120 and all-men C(6,3) = 20, so 120 − 20 = 100."],
+  ["m","Number formation","How many 4-digit even numbers can be formed from the digits 1, 2, 3, 4, 5 without repetition?",["24","48","60","72"],1,"The last digit is 2 or 4 (2 ways). The other three places use 4 remaining digits: 4 × 3 × 2 = 24. Total = 48."],
+  ["h","Non-adjacent arrangement","In how many ways can 5 boys and 3 girls be arranged in a row so that no two girls are together?",["720","7200","4320","14400"],3,"Arrange the boys: 5! = 120. This creates 6 gaps; choose and arrange 3 girls: 6P3 = 120. Total = 14400."],
+]),
+...m("Probability", [
+  ["e","Single die","A fair die is rolled once. What is the probability of getting an even number?",["1/6","1/3","1/2","2/3"],2,"Favourable outcomes are 2, 4 and 6, so 3/6 = 1/2."],
+  ["e","Drawing a card","A card is drawn from a standard deck of 52. What is the probability that it is a king?",["1/26","1/13","1/4","4/13"],1,"There are 4 kings, so 4/52 = 1/13."],
+  ["m","Two dice","Two fair dice are rolled. What is the probability that the sum is 8?",["1/6","5/36","1/9","7/36"],1,"Favourable: (2,6), (3,5), (4,4), (5,3), (6,2) = 5 of 36 outcomes."],
+  ["m","Without replacement","A bag has 5 red and 3 blue balls. Two balls are drawn without replacement. What is the probability that both are red?",["25/64","5/14","5/8","3/7"],1,"(5/8) × (4/7) = 20/56 = 5/14."],
+  ["h","Three-colour selection","A bag has 4 red, 5 green and 6 blue balls. Three balls are drawn at random. What is the probability of getting one ball of each colour?",["8/91","4/15","24/91","12/91"],2,"Favourable = 4 × 5 × 6 = 120; total = C(15,3) = 455. P = 120/455 = 24/91."],
+]),
+...m("Data Interpretation", [
+  ["e","Percentage change","Monthly sales of a shop were 120 units in January, 150 in February and 180 in March. What was the percentage increase from January to March?",["30%","40%","50%","60%"],2,"(180 − 120)/120 × 100 = 50%."],
+  ["m","Year-on-year change","A company's revenue was ₹400 crore in 2020, ₹500 crore in 2021 and ₹450 crore in 2022. What was the percentage change from 2021 to 2022?",["10% increase","10% decrease","12.5% decrease","5% decrease"],1,"(450 − 500)/500 × 100 = −10%, a 10% decrease."],
+  ["m","Pie chart","A family's monthly expenditure is ₹60,000. Rent takes 25%, food 30% and transport 15%; the remainder is for other items. How much is spent on other items?",["₹15,000","₹18,000","₹21,000","₹24,000"],1,"Others = 100 − 70 = 30% of 60000 = ₹18,000."],
+  ["m","Table comparison","Income and expenditure (₹ lakh): 2019 – 100 and 80; 2020 – 130 and 100; 2021 – 150 and 120. In which year was the profit percentage on expenditure the highest?",["2019","2021","2020","All equal"],2,"Profit %: 2019 = 20/80 = 25%; 2020 = 30/100 = 30%; 2021 = 30/120 = 25%. The highest is 2020."],
+  ["h","Weighted composition","Three sections have 40, 50 and 60 students. Boys are 60% in A, 40% in B and 50% in C. What percentage of all students are girls (to two decimals)?",["48.00%","49.33%","50.67%","52.00%"],2,"Boys = 24 + 20 + 30 = 74 of 150. Girls = 76/150 = 50.67%."],
+]),
+...m("Mensuration", [
+  ["e","Rectangle area","What is the area of a rectangle of length 15 cm and width 8 cm?",["46 cm²","120 cm²","23 cm²","240 cm²"],1,"Area = 15 × 8 = 120 cm²."],
+  ["e","Circumference","What is the circumference of a circle of radius 7 cm? (Use π = 22/7)",["22 cm","154 cm","44 cm","49 cm"],2,"2πr = 2 × 22/7 × 7 = 44 cm."],
+  ["m","Cylinder volume","What is the volume of a cylinder with radius 7 cm and height 10 cm? (Use π = 22/7)",["1540 cm³","770 cm³","1400 cm³","1760 cm³"],0,"πr²h = 22/7 × 49 × 10 = 1540 cm³."],
+  ["m","Cube diagonal","What is the length of the space diagonal of a cube of side 6 cm?",["6√2 cm","12 cm","6√3 cm","18 cm"],2,"Space diagonal = a√3 = 6√3 cm."],
+  ["h","Cylinder scaling","The radius of a cylinder is increased by 20% and its height is decreased by 25%. What is the change in its volume?",["8% decrease","5% increase","No change","8% increase"],3,"Volume ∝ r²h, so the multiplier = 1.2² × 0.75 = 1.44 × 0.75 = 1.08, an 8% increase."],
+]),
+];
