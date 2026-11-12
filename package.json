@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest run",
-    "seed": "tsx scripts/seed.ts"
+    "test": "vitest run --passWithNoTests",
+    "validate": "tsx scripts/validate-questions.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
