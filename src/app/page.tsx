@@ -1,94 +1,80 @@
-﻿export default function Home() {
+﻿import Link from "next/link";
+import { ALL_QUESTIONS } from "@/data/questions";
+import { CURRICULUM, SECTION_LABEL, type Section } from "@/lib/curriculum";
+
+const SECTION_META: Record<Section, { icon: string; blurb: string; tint: string }> = {
+  quantitative: { icon: "∑", blurb: "Percentages, time & work, probability, data interpretation and more.", tint: "bg-blue-50 text-brand" },
+  logical: { icon: "⌘", blurb: "Blood relations, seating, syllogisms, series and coding puzzles.", tint: "bg-teal-50 text-excel" },
+  verbal: { icon: "Aa", blurb: "Grammar, sentence correction, para jumbles and comprehension.", tint: "bg-amber-50 text-weak" },
+};
+
+export default function Home() {
+  const sections = Object.keys(CURRICULUM) as Section[];
+  const modules = sections.reduce((n, s) => n + CURRICULUM[s].length, 0);
+  const stats = [
+    [ALL_QUESTIONS.length, "Questions"],
+    [modules, "Modules"],
+    [3, "Sections"],
+    ["45–120s", "Per question"],
+  ];
+
   return (
-    <main style={{
-      minHeight: "100vh",
-      background: "#f5f7ff",
-      color: "#172554",
-      fontFamily: "Arial, sans-serif",
-      padding: "40px 20px"
-    }}>
-      <header style={{
-        maxWidth: "1100px",
-        margin: "0 auto",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <h1 style={{fontSize: "30px", color: "#2563eb"}}>
-          AptIQ
+    <main className="mx-auto max-w-6xl px-5">
+      <section className="relative pt-20 pb-16 text-center rise">
+        <div className="pointer-events-none absolute inset-x-0 -top-10 -z-10 mx-auto h-72 max-w-3xl rounded-full bg-brand/10 blur-3xl" />
+        <span className="chip bg-brand-tint text-brand">● Placement-ready aptitude practice</span>
+        <h1 className="mx-auto mt-6 max-w-3xl font-display text-5xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
+          Find your weak spots <span className="text-brand">before</span> the recruiter does.
         </h1>
-        <span>Aptitude Skill Analyzer</span>
-      </header>
-
-      <section style={{
-        maxWidth: "1000px",
-        margin: "100px auto",
-        textAlign: "center"
-      }}>
-        <h2 style={{fontSize: "48px", marginBottom: "20px"}}>
-          Your Aptitude Success Partner
-        </h2>
-
-        <p style={{
-          fontSize: "18px",
-          lineHeight: 1.8,
-          color: "#475569"
-        }}>
-          Discover your strengths, identify skill gaps, and prepare
-          for engineering placements with AptIQ.
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          Timed MCQs across quantitative, logical and verbal sections — with instant explanations
+          and a dashboard that tracks your accuracy over time.
         </p>
-
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "16px",
-          marginTop: "35px",
-          flexWrap: "wrap"
-        }}>
-          <a href="/practice" style={{
-            background: "#2563eb",
-            color: "white",
-            padding: "15px 25px",
-            borderRadius: "10px",
-            textDecoration: "none"
-          }}>
-            Start Practicing
-          </a>
-
-          <a href="/dashboard" style={{
-            border: "1px solid #2563eb",
-            color: "#2563eb",
-            padding: "15px 25px",
-            borderRadius: "10px",
-            textDecoration: "none"
-          }}>
-            View Dashboard
-          </a>
+        <div className="mt-9 flex flex-wrap justify-center gap-3">
+          <Link href="/practice" className="btn-primary px-7 py-3.5 text-base">Start practicing →</Link>
+          <Link href="/dashboard" className="btn-ghost px-7 py-3.5 text-base">View dashboard</Link>
         </div>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "20px",
-          marginTop: "65px"
-        }}>
-          {[
-            ["Quantitative Aptitude", "Improve numerical skills"],
-            ["Logical Reasoning", "Develop problem-solving"],
-            ["Verbal Ability", "Strengthen communication"],
-            ["Performance Analysis", "Understand your progress"]
-          ].map(([title, description]) => (
-            <article key={title} style={{
-              background: "white",
-              padding: "25px",
-              borderRadius: "16px",
-              boxShadow: "0 5px 20px rgba(0,0,0,0.05)"
-            }}>
-              <h3>{title}</h3>
-              <p style={{color: "#64748b"}}>{description}</p>
-            </article>
+        <dl className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+          {stats.map(([v, l]) => (
+            <div key={l} className="bg-white px-4 py-5">
+              <dt className="text-2xl font-bold text-ink">{v}</dt>
+              <dd className="mt-1 text-xs font-medium uppercase tracking-wider text-ink-mute">{l}</dd>
+            </div>
           ))}
-        </div>
+        </dl>
+      </section>
+
+      <section className="grid gap-5 md:grid-cols-3">
+        {sections.map((s) => (
+          <Link key={s} href={`/practice?section=${s}`} className="card group p-6 transition hover:-translate-y-1 hover:shadow-lg">
+            <div className={`grid h-12 w-12 place-items-center rounded-xl text-xl font-bold ${SECTION_META[s].tint}`}>{SECTION_META[s].icon}</div>
+            <h3 className="mt-5 text-lg font-bold">{SECTION_LABEL[s]}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft">{SECTION_META[s].blurb}</p>
+            <div className="mt-5 flex items-center justify-between text-sm">
+              <span className="text-ink-mute">
+                {CURRICULUM[s].length} modules · {ALL_QUESTIONS.filter((q) => q.section === s).length} Qs
+              </span>
+              <span className="font-semibold text-brand transition group-hover:translate-x-1">Practice →</span>
+            </div>
+          </Link>
+        ))}
+      </section>
+
+      <section className="mt-16 grid gap-5 md:grid-cols-3">
+        {[
+          ["⏱", "Difficulty-based timers", "45s easy, 75s medium, 120s hard — the pressure of a real test."],
+          ["💡", "Explanations for every answer", "Review what you missed with worked solutions right after the test."],
+          ["📈", "Progress dashboard", "Accuracy trend, section breakdown and full attempt history."],
+        ].map(([i, t, d]) => (
+          <div key={t} className="flex gap-4 p-2">
+            <span className="text-2xl">{i}</span>
+            <div>
+              <h4 className="font-semibold">{t}</h4>
+              <p className="mt-1 text-sm text-ink-soft">{d}</p>
+            </div>
+          </div>
+        ))}
       </section>
     </main>
   );

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+body { @apply bg-paper text-ink antialiased font-sans; }
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-primary { @apply btn bg-brand text-white shadow-[0_6px_20px_-6px_rgba(29,78,216,.6)] hover:bg-brand-dark hover:-translate-y-px; }
+  .btn-ghost { @apply btn border border-line bg-white text-ink hover:border-brand hover:text-brand; }
+  .card { @apply rounded-2xl border border-line bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[0.16em] text-brand; }
+  .chip { @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold; }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .35s ease-out both; }
